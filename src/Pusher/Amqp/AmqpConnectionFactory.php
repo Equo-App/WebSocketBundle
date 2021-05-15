@@ -49,6 +49,11 @@ final class AmqpConnectionFactory implements AmqpConnectionFactoryInterface
         $queue->setFlags(AMQP_DURABLE);
         $queue->declareQueue();
 
+
+        $exchange = $this->createExchange($connection);
+        $queue->bind($exchange->getName(), $this->config['queue_name']);
+
+
         return $queue;
     }
 
